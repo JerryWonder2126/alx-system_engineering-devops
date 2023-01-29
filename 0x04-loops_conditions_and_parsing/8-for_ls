@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# This script displays the name of files in the active folder
+# after the first "-" character
+for i in *
+do
+    echo "$i" | cut -d '-' -f 2
+done
