@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# This script prints all ports that are listening with their PID/program name
+netstat -lp
