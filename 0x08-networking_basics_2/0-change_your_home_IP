@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+cp /etc/hosts ~/hosts.new
+sed -i 's/\b127.0.0.1\b/127.0.0.2/' ~/hosts.new
+sed -i '1s/^/8.8.8.8 facebook.com\n/' ~/hosts.new
+sudo cp ~/hosts.new /etc/hosts
