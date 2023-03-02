@@ -1,0 +1,1 @@
+This folder contains images that describes the process of designing a web infrastructure. Concepts like load balancers, web servers, application servers and other networking concept were úsed in these explanations
