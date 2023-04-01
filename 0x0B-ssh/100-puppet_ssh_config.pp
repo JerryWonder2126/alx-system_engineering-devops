@@ -1,3 +1,5 @@
+# Edit ssh_config file on server
+
 file_line { 'Turn off passwd auth':
   ensure => present,
   path   => '/etc/ssh/ssh_config',
