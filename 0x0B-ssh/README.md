@@ -1,0 +1,1 @@
+This folder contains solutions to ALX SE tasks on how to create SSH keys and how  to log in to remote VMs using SSH.
