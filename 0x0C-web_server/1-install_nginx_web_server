@@ -2,13 +2,25 @@
 # Configure an NGINX server
 
 # Install nginx
-apt-get -y update && apt-get install nginx -y
+# apt-get -y update && apt-get install nginx -y
 
-# Create index.html file
-touch /var/www/html/index.html
-
-# Add content to the file
+# Create and add content to index.html file
 echo "Hello World!" > /var/www/html/index.html
+
+# Create new config file with options from default config, copy over only the uncommented lines
+awk '!/(\s)?#/' /etc/nginx/sites-available/default > /etc/nginx/sites-available/site.config
+
+# Comment all lines on this file, lines not containing # are commented
+sed -i.bak '/^#/b; s/^/#/g' /etc/nginx/sites-available/default
+
+# Remove server_name config
+sed -i '/server_name/,+1d' /etc/nginx/sites-available/site.config
+
+# Remove location config
+sed -i '/location/,+4d' /etc/nginx/sites-available/site.config
+
+# Create symlink in sites-enabled directory
+ln -s /etc/nginx/sites-available/site.config /etc/nginx/sites-enabled
 
 # Start the service
 service nginx restart
