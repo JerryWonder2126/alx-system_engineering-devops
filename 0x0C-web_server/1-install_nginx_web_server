@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Configure an NGINX server
+
+# Install nginx
+# apt-get update && apt-get install nginx
+
+# Create index.html file
+touch /var/www/html/index.html
+
+# Add content to the file
+echo "Hello World!" > /var/www/html/index.html
+
+# Start the service
+service nginx restart
