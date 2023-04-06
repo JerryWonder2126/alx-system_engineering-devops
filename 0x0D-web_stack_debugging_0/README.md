@@ -1,0 +1,1 @@
+This folder contains the solution to ALX SE task on debugging an Apache config on a docker container
