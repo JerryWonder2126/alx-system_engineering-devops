@@ -1,4 +1,4 @@
-# Installs Nginx and creates a custom HTTP header
+# Setup Nginx server with a custom HTTP header
 
 exec { '/usr/bin/env apt-get -y update' : }
 -> package { 'nginx':
