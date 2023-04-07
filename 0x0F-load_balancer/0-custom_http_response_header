@@ -2,7 +2,8 @@
 # Configure an NGINX server
 
 # Install nginx
-sudo apt-get -y update && sudo apt-get install nginx -y
+sudo apt-get -y update
+sudo apt-get install nginx -y
 
 # Create and add content to index.html file
 sudo echo "Hello World!" > /var/www/html/index.html
