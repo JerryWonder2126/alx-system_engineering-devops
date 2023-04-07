@@ -2,34 +2,35 @@
 # Configure an NGINX server
 
 # Install nginx
-apt-get -y update && apt-get install nginx -y
+sudo apt-get -y update && apt-get install nginx -y
 
 # Create and add content to index.html file
-echo "Hello World!" > /var/www/html/index.html
+sudo echo "Hello World!" > /var/www/html/index.html
 
 CONFIG_PATH="/etc/nginx/sites-available/site.config"
 
 # Create new config file with options from default config, copy over only the uncommented lines
-awk '!/(\s)?#/' /etc/nginx/sites-available/default > $CONFIG_PATH
+sudo awk '!/(\s)?#/' /etc/nginx/sites-available/default > $CONFIG_PATH
 
-# Comment all lines on this file, lines not containing # are commented
-sed -i.bak '/^#/b; s/^/#/g' /etc/nginx/sites-available/default
+# rename default config file to default.bak
+sudo mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
 
 # Add redirect config
-sed -i 'N;/server_name/a # Redirect configuration\n\tlocation \/redirect_me {\n\t\trewrite \/redirect_me https:\/\/youtube.com permanent;\n\t}\n' $CONFIG_PATH
+redirect_string="# Redirect configuration\n\tlocation \/redirect_me {\n\t\trewrite \/redirect_me https:\/\/youtube.com permanent;\n\t}\n"
+sudo sed -i "s/server_name _;/server_name _;\n\n\t$redirect_string/" $CONFIG_PATH
 
 # Create custom_404.html file
-echo -e "Ceci n'est pas une page\n" > /var/www/html/custom_404.html
+sudo echo -e "Ceci n'est pas une page\n" > /var/www/html/custom_404.html
 
 # Add 404 config
-sed -i 'N;/server_name/a # 404 configuration\n\terror_page 404 \/custom_404.html;\n\n\tlocation \/custom_404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}\n' $CONFIG_PATH
+string_404="# 404 configuration\n\terror_page 404 \/custom_404.html;\n\n\tlocation \/custom_404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}\n"
+sudo sed -i "s/server_name _;/server_name _;\n\n\t$string_404/" $CONFIG_PATH
 
 # Add custom header
-sed -i 'N;/server_name/a # Custom Header\n\tadd_header X-Served-By $hostname;\n' $CONFIG_PATH
+sudo sed -i 'N;/server_name/a # Custom Header\n\tadd_header X-Served-By $hostname;\n' $CONFIG_PATH
 
-# Create symlink in sites-enabled directory
-ln -s $CONFIG_PATH /etc/nginx/sites-enabled
+# Rename config file to default
+sudo mv $CONFIG_PATH /etc/nginx/sites-available/default
 
 # Start the service
-service nginx restart
-
+sudo service nginx restart
