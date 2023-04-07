@@ -27,7 +27,7 @@ string_404="# 404 configuration\n\terror_page 404 \/custom_404.html;\n\n\tlocati
 sudo sed -i "s/server_name _;/server_name _;\n\n\t$string_404/" $CONFIG_PATH
 
 # Add custom header
-sudo sed -i 'N;/server_name/a # Custom Header\n\tadd_header X-Served-By $hostname;\n' $CONFIG_PATH
+sudo sed -i 's/server_name _;/server_name _;\n\n\t# Custom Header\n\tadd_header X-Served-By $hostname;\n/' $CONFIG_PATH
 
 # Rename config file to default
 sudo mv $CONFIG_PATH /etc/nginx/sites-available/default
