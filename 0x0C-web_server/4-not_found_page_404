@@ -2,10 +2,10 @@
 # Configure an NGINX server
 
 # Install nginx
-#apt-get -y update && apt-get install nginx -y
+apt-get -y update && apt-get install nginx -y
 
 # Create and add content to index.html file
-#echo "Hello World!" > /var/www/html/index.html
+echo "Hello World!" > /var/www/html/index.html
 
 CONFIG_PATH="/etc/nginx/sites-available/site.config"
 
