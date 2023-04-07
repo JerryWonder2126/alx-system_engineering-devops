@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Configure HAProxy as a load balancer
+
+sudo apt install --no-install-recommends software-properties-common -y
+
+sudo add-apt-repository ppa:vbernat/haproxy-2.4 -y
+
+sudo apt install haproxy -y
+
+sudo sed -i "$ a ENABLED=1\n" /etc/default/haproxy
+
+CONFIG_FILE=/etc/haproxy/haproxy.cfg
+
+CONFIG_TEXT="frontend main\n\tbind *:80\n\toption forwardfor\n\tdefault_backend webservers\n\nbackend webservers\n\tbalance roundrobin\n\tserver websvr1\t\t54.175.224.84:80 check\n\tserver websvr2\t\t54.227.223.86:80 check\n"
+
+sudo sed -i.bak "$ a $CONFIG_TEXT" $CONFIG_FILE
+
+sudo service haproxy restart
