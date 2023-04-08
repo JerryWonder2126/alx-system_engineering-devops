@@ -4,6 +4,6 @@
 sed -i.bak 's/8080/80/g' /etc/nginx/sites-available/default
 
 # Recreate symbolic link
-sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
-sudo service nginx restart
+service nginx restart
