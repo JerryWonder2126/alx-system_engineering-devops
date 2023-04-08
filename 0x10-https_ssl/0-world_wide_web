@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+custom_dig() {
+    # dig $URL | awk '!(/^;/) { print }' | awk '/^[a-zA-Z]/ { print }'
+    dig $URL | grep -A1 'ANSWER SECTION' | awk '!(/^;/) { print }' | awk '/^[a-zA-Z]/ { print }'
+
+    return 0
+}
+
+DOMAIN=$1
+SUBDOMAIN=$2
+
+if [ ! $DOMAIN ]; then
+    echo 'error'
+    exit 22
+fi
+
+if [ ! $SUBDOMAIN ]; then
+    declare -a SUBDOMAINS=("www" "lb-01" "web-01" "web-02")
+    for val in ${SUBDOMAINS[@]}; do
+	URL="$val.$DOMAIN"
+	custom_dig
+    done
+else
+    URL="$SUBDOMAIN.$DOMAIN"
+    custom_dig
+fi
