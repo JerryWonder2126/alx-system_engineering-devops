@@ -22,7 +22,7 @@ exec { 'Update apt-get' :
 
 -> file_line { 'add header' :
   ensure => present,
-  line   => "\n\tadd_header X-Served-By \$hostname;",
+  line   => "\n\tadd_header X-Served-By ${hostname};",
   path   => '/etc/nginx/sites-available/default',
   after  => 'server_name _;',
 }
