@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
+# Performs dig on a url and gets the DNS info
 
 custom_dig() {
-    # dig $URL | awk '!(/^;/) { print }' | awk '/^[a-zA-Z]/ { print }'
-    dig $URL | grep -A1 'ANSWER SECTION' | awk '!(/^;/) { print }' | awk '/^[a-zA-Z]/ { print }'
+    # digs $URL and parses result into a human friendly form
+    digInfo=($(dig $URL | grep -A1 'ANSWER SECTION' | awk '!(/^;/) { print }' | awk '/^[a-zA-Z]/ { print }'))
+
+    echo "The subdomain $SUBDOMAIN is a ${digInfo[3]} record and points to ${digInfo[4]}"
 
     return 0
 }
@@ -17,8 +20,8 @@ fi
 
 if [ ! $SUBDOMAIN ]; then
     declare -a SUBDOMAINS=("www" "lb-01" "web-01" "web-02")
-    for val in ${SUBDOMAINS[@]}; do
-	URL="$val.$DOMAIN"
+    for SUBDOMAIN in ${SUBDOMAINS[@]}; do
+	URL="$SUBDOMAIN.$DOMAIN"
 	custom_dig
     done
 else
