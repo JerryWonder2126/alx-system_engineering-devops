@@ -3,8 +3,9 @@
 
 custom_dig() {
     # digs the url passed to it and parses result into a human friendly form
-    readarray -t -d $'\t' digInfo < <(printf '%s' "$(dig "$1.$2" | grep -A1 'ANSWER SECTION' | awk '!(/^;/) { print }' | awk '/^[a-zA-Z]/ { print }')")
-    echo "The subdomain $1 is a ${digInfo[3]} record and points to ${digInfo[4]}"
+    digInfo=$(printf '%s' "$(dig $1.$2 | grep -A1 'ANSWER SECTION' | awk '/^[a-zA-Z]/ { print  }' | tr '\t' ' ')")
+    #echo "$1 $digInfo"
+    echo "$1 $digInfo" | awk '{ print "The subdomain " $1 " is a " $5 " record and points to " $6 }'
 }
 
 if [ "$#" -eq 1 ]; then
@@ -13,5 +14,5 @@ if [ "$#" -eq 1 ]; then
     custom_dig "web-01" "$1"
     custom_dig "web-02" "$1"
 elif [ "$#" -eq 2  ]; then
-    cust7om_dig "$2" "$1"
+    custom_dig "$2" "$1"
 fi
