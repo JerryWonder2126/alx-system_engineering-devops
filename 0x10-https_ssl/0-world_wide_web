@@ -14,10 +14,10 @@ DOMAIN=$1
 SUBDOMAIN=$2
 
 if [ ! "$SUBDOMAIN" ]; then
-    declare -a SUBDOMAINS=("www" "lb-01" "web-01" "web-02")
-    for SUBDOMAIN in "${SUBDOMAINS[@]}"; do
-	custom_dig "$SUBDOMAIN.$DOMAIN" 
-    done
+    custom_dig "www.$DOMAIN"
+    custom_dig "lb-01.$DOMAIN"
+    custom_dig "web-01.$DOMAIN"
+    custom_dig "web-02.$DOMAIN"
 else
     custom_dig "$SUBDOMAIN.$DOMAIN"
 fi
