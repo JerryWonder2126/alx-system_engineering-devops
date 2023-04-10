@@ -3,21 +3,18 @@
 
 custom_dig() {
     # digs the url passed to it and parses result into a human friendly form
-    readarray -t -d $'\t' digInfo < <(printf '%s' "$(dig "$1" | grep -A1 'ANSWER SECTION' | awk '!(/^;/) { print }' | awk '/^[a-zA-Z]/ { print }')")
+    readarray -t -d $'\t' digInfo < <(printf '%s' "$(dig "$1.$2" | grep -A1 'ANSWER SECTION' | awk '!(/^;/) { print }' | awk '/^[a-zA-Z]/ { print }')")
 
-    echo "The subdomain $SUBDOMAIN is a ${digInfo[3]} record and points to ${digInfo[4]}"
+    echo "The subdomain $1 is a ${digInfo[3]} record and points to ${digInfo[4]}"
 
     return 0
 }
 
-DOMAIN=$1
-SUBDOMAIN=$2
-
-if [ ! "$SUBDOMAIN" ]; then
-    custom_dig "www.$DOMAIN"
-    custom_dig "lb-01.$DOMAIN"
-    custom_dig "web-01.$DOMAIN"
-    custom_dig "web-02.$DOMAIN"
-else
-    custom_dig "$SUBDOMAIN.$DOMAIN"
+if [ $# -eq 1 ]; then
+    custom_dig "www" "$1"
+    custom_dig "lb-01" "$1"
+    custom_dig "web-01" "$1"
+    custom_dig "web-02" "$1"
+elif [ $# -eq 2  ]; then
+    custom_dig "$2" "$1"
 fi
