@@ -7,4 +7,4 @@ the page you see when you enter that URL?
 I spoke at length about these things in this article, read the article [here](https://solvit.hashnode.dev/understanding-the-way-the-web-works)
 
 ## Simple flowchart that describes the process
-![simple flowchart for how the web works)[https://drive.google.com/file/d/1C5aXtauhTNVK6ndNMzwDnVyT3QpZkC6v/view?usp=share_link]
+[simple flowchart for how the web works)[https://drive.google.com/file/d/1C5aXtauhTNVK6ndNMzwDnVyT3QpZkC6v/view?usp=share_link]
