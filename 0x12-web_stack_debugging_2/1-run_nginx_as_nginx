@@ -9,7 +9,7 @@ sudo chown -R nginx:nginx /etc/nginx /var/log/nginx /var/lib/nginx
 sudo sed -i.bak '/\[Service\]/a User=nginx\nGroup=nginx\n' /lib/systemd/system/nginx.service
 
 # Change the user to nginx
-sudo sed -i.bak 's/#user www-data/user nginx\n/' /etc/nginx/nginx.conf
+sudo sed -i.bak 's/#user www-data/user nginx/' /etc/nginx/nginx.conf
 
 # Make nginx listen on port 8080 instead of 80
 sudo sed -i.bak 's/80/8080/g' /etc/nginx/sites-available/default
@@ -18,4 +18,4 @@ sudo sed -i.bak 's/80/8080/g' /etc/nginx/sites-available/default
 sudo pkill apache2
 
 # Restart nginx
-sudo service nginx restart
+sudo -u nginx service nginx restart
