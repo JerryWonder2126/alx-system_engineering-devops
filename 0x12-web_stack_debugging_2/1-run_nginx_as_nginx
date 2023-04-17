@@ -6,7 +6,7 @@ sudo chown -R nginx:nginx /etc/nginx /var/log/nginx /var/lib/nginx
 # chmod u+rw /etc/nginx/nginx.conf
 
 # Change the user and group that runs nginx master process
-sudo sed -i.bak '/[Service]/a User=nginx\nGroup=nginx\n' /lib/systemd/system/nginx.service
+sudo sed -i.bak '/\[Service\]/a User=nginx\nGroup=nginx\n' /lib/systemd/system/nginx.service
 
 # Change the user to nginx
 sudo sed -i.bak 's/#user www-data/user nginx\n/' /etc/nginx/nginx.conf
