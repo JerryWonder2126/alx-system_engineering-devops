@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Debug an nginx server and set it up to run as nginx user instead
+
+# Change the onwership of directories used by nginx
+sudo chown -R nginx:nginx /etc/nginx /var/log/nginx /var/lib/nginx
+# chmod u+rw /etc/nginx/nginx.conf
+
+# Change the user and group that runs nginx master process
+sudo sed -i.bak '/[Service]/a User=nginx\nGroup=nginx\n' /lib/systemd/system/nginx.service
+
+# Change the user to nginx
+sudo sed -i.bak 's/#user www-data/user nginx\n/' /etc/nginx/nginx.conf
+
+# Make nginx listen on port 8080 instead of 80
+sudo sed -i.bak 's/80/8080/g' /etc/nginx/sites-available/default
+
+# Kill apache2, since it's running on port 8080
+sudo pkill apache2
+
+# Restart nginx
+sudo service nginx restart
