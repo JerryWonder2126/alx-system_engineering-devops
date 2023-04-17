@@ -3,7 +3,7 @@
 
 # Change the onwership of directories used by nginx
 sudo chown -R nginx:nginx /etc/nginx /var/log/nginx /var/lib/nginx
-# chmod u+rw /etc/nginx/nginx.conf
+sudo chmod u+rw /etc/nginx/nginx.conf
 
 # Change the user and group that runs nginx master process
 sudo sed -i.bak '/\[Service\]/a User=nginx\nGroup=nginx\n' /lib/systemd/system/nginx.service
