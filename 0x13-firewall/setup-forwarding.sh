@@ -20,3 +20,4 @@ sudo printf '\n%s\n' "*nat
 COMMIT" | sudo tee --append /etc/ufw/before.rules
 
 sudo ufw allow 8080/tcp
+sudo service ufw restart
