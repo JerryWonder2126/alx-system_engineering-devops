@@ -12,11 +12,11 @@ sudo ufw allow 443/tcp
 sudo ufw allow 22/tcp
 
 # Port forwarding config
-sudo echo -e "net.ipv4.ip_forward=1\n" >> /etc/ufw/sysctl.conf
+echo -e "net.ipv4.ip_forward=1\n" | sudo tee --append /etc/ufw/sysctl.conf
 
 sudo printf '\n%s\n' "*nat
 :PREROUTING ACCEPT [0:0]
 -A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
-COMMIT" >> /etc/ufw/before.rules
+COMMIT" | sudo tee --append /etc/ufw/before.rules
 
 sudo ufw allow 8080/tcp
