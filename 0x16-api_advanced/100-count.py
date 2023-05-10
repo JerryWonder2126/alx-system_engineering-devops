@@ -19,7 +19,7 @@ def count_words(subreddit, word_list, word_count={}, after=0):
     response = requests.get(url, headers=headers,
                             params=params, allow_redirects=False)
     if response.status_code != 200:
-        return None
+        print("")
     body = response.json().get("data")
     for value in body.get("children"):
         words = value.get("data").get("title").lower().split()
@@ -35,4 +35,3 @@ def count_words(subreddit, word_list, word_count={}, after=0):
         for key, value in word_count.items():
             if value:
                 print("{}: {}".format(key, value))
-    return word_count
