@@ -9,7 +9,7 @@ def number_of_subscribers(subreddit):
     Returns the number of subscriber to a subreddit
     Returns 0 if the subreddit isn't valid
     """
-    url = "https://www.redit.com/r/{}/about.json()".format(subreddit)
+    url = ("https://www.redit.com/r/{}/about.json()".format(subreddit))
     headers = {
         "User-Agent": "Mozilla/5.0"
     }
