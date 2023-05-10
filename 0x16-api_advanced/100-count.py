@@ -22,16 +22,16 @@ def count_words(subreddit, word_list, word_count={}, after=0):
         return None
     body = response.json().get("data")
     for value in body.get("children"):
-        words = value.get("data").get("title").split()
+        words = value.get("data").get("title").lower().split()
         for word in words:
-            if word.lower() in word_count:
-                word_count[word.lower()] += 1
+            if word in word_count:
+                word_count[word] += 1
     after = body.get("after")
     if after:
         count_words(subreddit, word_list, word_count, after)
     else:
         word_count = dict(sorted(word_count.items(),
-                                 key=lambda x: x[1], reverse=True))
+                                 key=lambda x: (-x[1], x[0])))
         for key, value in word_count.items():
             if value:
                 print("{}: {}".format(key, value))
